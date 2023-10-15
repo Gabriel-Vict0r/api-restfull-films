@@ -1,3 +1,7 @@
+//ENV variables
+
+require("dotenv").config();
+
 import express from 'express'
 import config from 'config'
 
@@ -6,8 +10,21 @@ const app = express()
 //JSON middleware
 app.use(express.json())
 
+//db
+import db from '../config/db';
+
+//routers
+import router from './router'
+
+//logger
+import Logger from '../config/logger';
+
+app.use("/api/", router);
 // app port
 const port = config.get<number>('port')
+
+
 app.listen(port, async () => {
-    console.log(`aplicação está funcionando na porta ${port}`);
+    await db();
+    Logger.info(`aplicação está funcionando na porta ${port}`);
 });

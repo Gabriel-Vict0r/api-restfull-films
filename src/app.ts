@@ -19,7 +19,12 @@ import router from './router'
 //logger
 import Logger from '../config/logger';
 
+//middlewares
+import morganMiddleware from './middleware/morganMiddleware';
+
+app.use(morganMiddleware);
 app.use("/api/", router);
+
 // app port
 const port = config.get<number>('port')
 
